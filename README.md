@@ -62,9 +62,4 @@ go run ./cmd/build-rules
 
 - `geosite` 数据来自 [Loyalsoldier/v2ray-rules-dat](https://github.com/Loyalsoldier/v2ray-rules-dat)
 - `geoip` 数据来自 [Loyalsoldier/geoip](https://github.com/Loyalsoldier/geoip)
-- 生成逻辑参考了 [lyc8503/sing-box-rules](https://github.com/lyc8503/sing-box-rules)
-
-建议在正式公开或长期分发前补充仓库自己的 `LICENSE`，并在说明文件中保留上游来源链接。若上游许可证、数据来源或分发规则发生变化，应以对应上游仓库的最新说明为准。
-
-本项目仅提供规则转换与自动发布脚本，不对上游数据的完整性、准确性、可用性或合规性作保证。使用者应自行承担使用、同步、再分发这些规则文件所产生的风险和责任。
 
