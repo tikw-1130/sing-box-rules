@@ -1,0 +1,66 @@
+name: Release sing-box rules
+
+on:
+  workflow_dispatch:
+    inputs:
+      force:
+        description: Force a release even when upstream tags are unchanged
+        required: false
+        default: "false"
+  schedule:
+    - cron: "15 22 * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sing-box-rules-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      FORCE: ${{ github.event.inputs.force || 'false' }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.26.4"
+          cache: true
+
+      - name: Build artifacts
+        id: build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: go run ./cmd/build-rules
+
+      - name: Package rule-set archives
+        if: steps.build.outputs.changed == 'true'
+        run: |
+          cd dist
+          zip -rq geosite-rule-set.zip rule-set-geosite
+          zip -rq geoip-rule-set.zip rule-set-geoip
+
+      - name: Publish rule-set branches
+        if: steps.build.outputs.changed == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          chmod +x scripts/publish-branches.sh
+          scripts/publish-branches.sh
+
+      - name: Create GitHub release
+        if: steps.build.outputs.changed == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${{ steps.build.outputs.release_tag }}" \
+            dist/geosite-rule-set.zip \
+            dist/geoip-rule-set.zip \
+            dist/manifest.json \
+            --title "${{ steps.build.outputs.release_name }}" \
+            --notes-file dist/release-notes.md
