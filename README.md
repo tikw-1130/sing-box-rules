@@ -10,9 +10,6 @@
 
 - `dist/geosite/*.srs`
 - `dist/geoip/*.srs`
-- Release 里的 `geosite.zip`
-- Release 里的 `geoip.zip`
-- Release 里的 `manifest.json`
 - `rule-set-geosite` 分支
 - `rule-set-geoip` 分支
 
@@ -35,19 +32,14 @@ scripts/publish-branches.sh
 
 第一次运行前，到仓库 `Settings -> Actions -> General` 确认工作流具备写入仓库内容的权限。
 
-然后在 `Actions` 页面手动运行一次 `Release sing-box rules`。
+然后在 `Actions` 页面手动运行一次 `Publish sing-box rules`。
 
-第一次运行成功后会得到：
+运行成功后会得到：
 
-- Release 资产里的 `geosite.zip`、`geoip.zip`、`manifest.json`
 - `rule-set-geosite` 分支，内容来自 `dist/geosite/*.srs`
 - `rule-set-geoip` 分支，内容来自 `dist/geoip/*.srs`
 
-工作流会读取当前仓库最新 Release 中的 `manifest.json`，再和上游最新 tag 比较：
-
-- 如果上游 tag 没变化，默认跳过发版
-- 如果上游 tag 有变化，重新生成并发布
-- 可以在 `workflow_dispatch` 里把 `force` 设为 `true` 强制发版
+工作流不会创建 GitHub Release，也不会上传压缩包。每次运行都会重新生成 `.srs` 并强制刷新上面两个规则分支。
 
 ## 下载地址示例
 
