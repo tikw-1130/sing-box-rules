@@ -13,6 +13,9 @@ const (
 	GeositeBranch = "rule-set-geosite"
 	GeoIPBranch   = "rule-set-geoip"
 
+	GeositeOutputDir = "geosite"
+	GeoIPOutputDir   = "geoip"
+
 	ManifestAssetName = "manifest.json"
 	ReleaseNotesPath  = "dist/release-notes.md"
 	ManifestPath      = "dist/manifest.json"
@@ -21,12 +24,12 @@ const (
 )
 
 type Manifest struct {
-	GeneratedAt     string            `json:"generated_at"`
-	SingBoxVersion  string            `json:"sing_box_version"`
-	RuleSetVersion  uint8             `json:"rule_set_version"`
-	Geosite         DatasetManifest   `json:"geosite"`
-	GeoIP           DatasetManifest   `json:"geoip"`
-	Artifacts       ArtifactManifest  `json:"artifacts"`
+	GeneratedAt    string           `json:"generated_at"`
+	SingBoxVersion string           `json:"sing_box_version"`
+	RuleSetVersion uint8            `json:"rule_set_version"`
+	Geosite        DatasetManifest  `json:"geosite"`
+	GeoIP          DatasetManifest  `json:"geoip"`
+	Artifacts      ArtifactManifest `json:"artifacts"`
 }
 
 type DatasetManifest struct {
@@ -40,6 +43,8 @@ type DatasetManifest struct {
 type ArtifactManifest struct {
 	GeositeRuleSetCount int    `json:"geosite_rule_set_count"`
 	GeoIPRuleSetCount   int    `json:"geoip_rule_set_count"`
+	GeositeDirectory    string `json:"geosite_directory"`
+	GeoIPDirectory      string `json:"geoip_directory"`
 	GeositeBranch       string `json:"geosite_branch"`
 	GeoIPBranch         string `json:"geoip_branch"`
 }

@@ -99,9 +99,9 @@ func parseGeoIP(payload []byte) (map[string][]*net.IPNet, error) {
 }
 
 func writeGeoIPOutputs(rootDir string, countryMap map[string][]*net.IPNet) error {
-	branchDir := filepath.Join(rootDir, "dist", GeoIPBranch)
+	outputDir := filepath.Join(rootDir, "dist", GeoIPOutputDir)
 
-	if err := ensureDir(branchDir); err != nil {
+	if err := ensureDir(outputDir); err != nil {
 		return err
 	}
 
@@ -116,7 +116,7 @@ func writeGeoIPOutputs(rootDir string, countryMap map[string][]*net.IPNet) error
 
 		ruleSet := newPlainRuleSet(rule)
 		baseName := "geoip-" + code
-		if err := writeRuleSetFile(filepath.Join(branchDir, baseName+".srs"), ruleSet); err != nil {
+		if err := writeRuleSetFile(filepath.Join(outputDir, baseName+".srs"), ruleSet); err != nil {
 			return err
 		}
 	}

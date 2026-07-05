@@ -95,9 +95,9 @@ func parseGeosite(payload []byte) (map[string][]geosite.Item, error) {
 }
 
 func writeGeositeOutputs(rootDir string, domainMap map[string][]geosite.Item) error {
-	branchDir := filepath.Join(rootDir, "dist", GeositeBranch)
+	outputDir := filepath.Join(rootDir, "dist", GeositeOutputDir)
 
-	if err := ensureDir(branchDir); err != nil {
+	if err := ensureDir(outputDir); err != nil {
 		return err
 	}
 
@@ -111,7 +111,7 @@ func writeGeositeOutputs(rootDir string, domainMap map[string][]geosite.Item) er
 		}
 		ruleSet := newPlainRuleSet(rule)
 		baseName := "geosite-" + code
-		if err := writeRuleSetFile(filepath.Join(branchDir, baseName+".srs"), ruleSet); err != nil {
+		if err := writeRuleSetFile(filepath.Join(outputDir, baseName+".srs"), ruleSet); err != nil {
 			return err
 		}
 	}
