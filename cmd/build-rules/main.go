@@ -94,6 +94,8 @@ func run() error {
 		Artifacts: generator.ArtifactManifest{
 			GeositeRuleSetCount: geositeCount,
 			GeoIPRuleSetCount:   geoIPCount,
+			GeositeDirectory:    generator.GeositeOutputDir,
+			GeoIPDirectory:      generator.GeoIPOutputDir,
 			GeositeBranch:       generator.GeositeBranch,
 			GeoIPBranch:         generator.GeoIPBranch,
 		},
@@ -191,11 +193,13 @@ func releaseNotes(manifest generator.Manifest) string {
 - geoip upstream: %s @ %s
 - geosite categories: %d
 - geoip categories: %d
+- geosite directory: dist/%s
+- geoip directory: dist/%s
 
 Assets:
 
-- geosite-rule-set.zip
-- geoip-rule-set.zip
+- geosite.zip
+- geoip.zip
 - manifest.json
 
 Branches:
@@ -211,6 +215,8 @@ Branches:
 		manifest.GeoIP.ReleaseTag,
 		manifest.Artifacts.GeositeRuleSetCount,
 		manifest.Artifacts.GeoIPRuleSetCount,
+		manifest.Artifacts.GeositeDirectory,
+		manifest.Artifacts.GeoIPDirectory,
 		manifest.Artifacts.GeositeBranch,
 		manifest.Artifacts.GeoIPBranch,
 	)
