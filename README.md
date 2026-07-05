@@ -1,6 +1,9 @@
 ﻿# sing-box-rules
 
 基于上游规则自动生成 `sing-box` 远程 rule-set 文件。
+下载地址：
+geoip：https://github.com/tikw-1130/sing-box-rules/tree/rule-set-geoip
+geosite：https://github.com/tikw-1130/sing-box-rules/tree/rule-set-geosite
 
 ## 生成内容
 
@@ -8,7 +11,6 @@
 - `dist/geoip/*.srs`
 - `rule-set-geosite` 分支
 - `rule-set-geoip` 分支
-
 数据来源：
 
 - `geosite`: [Loyalsoldier/v2ray-rules-dat](https://github.com/Loyalsoldier/v2ray-rules-dat)
