@@ -27,5 +27,5 @@ publish_branch() {
   rm -rf "${temp_dir}"
 }
 
-publish_branch "dist/rule-set-geosite" "rule-set-geosite"
-publish_branch "dist/rule-set-geoip" "rule-set-geoip"
+publish_branch "dist/geosite" "rule-set-geosite"
+publish_branch "dist/geoip" "rule-set-geoip"
