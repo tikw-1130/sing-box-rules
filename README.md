@@ -1,4 +1,4 @@
-# sing-box-rules
+﻿# sing-box-rules
 
 基于上游规则自动生成 `sing-box` 远程 rule-set 文件。
 
@@ -80,4 +80,13 @@ go run ./cmd/build-rules
 
 ## 许可提醒
 
-这个模板会消费并重新分发上游规则数据。正式公开前，建议根据上游仓库的许可证要求补充自己的 `LICENSE` 和说明文件。
+本仓库生成的规则文件基于上游公开数据重新整理并分发，使用前请自行确认上游项目的许可证、免责声明和再分发要求：
+
+- `geosite` 数据来自 [Loyalsoldier/v2ray-rules-dat](https://github.com/Loyalsoldier/v2ray-rules-dat)
+- `geoip` 数据来自 [Loyalsoldier/geoip](https://github.com/Loyalsoldier/geoip)
+- 生成逻辑参考了 [lyc8503/sing-box-rules](https://github.com/lyc8503/sing-box-rules)
+
+建议在正式公开或长期分发前补充仓库自己的 `LICENSE`，并在说明文件中保留上游来源链接。若上游许可证、数据来源或分发规则发生变化，应以对应上游仓库的最新说明为准。
+
+本项目仅提供规则转换与自动发布脚本，不对上游数据的完整性、准确性、可用性或合规性作保证。使用者应自行承担使用、同步、再分发这些规则文件所产生的风险和责任。
+
