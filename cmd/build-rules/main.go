@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"log"
 	"os"
@@ -41,34 +40,11 @@ func run() error {
 		return fmt.Errorf("fetch geoip release: %w", err)
 	}
 
-	force := strings.EqualFold(os.Getenv("FORCE"), "true")
-	changed, err := shouldBuild(ctx, client, os.Getenv("GITHUB_REPOSITORY"), geositeRelease.TagName, geoIPRelease.TagName, force)
-	if err != nil {
-		return err
-	}
-
-	if err := setGitHubOutput("changed", boolString(changed)); err != nil {
-		return err
-	}
 	if err := setGitHubOutput("geosite_tag", geositeRelease.TagName); err != nil {
 		return err
 	}
 	if err := setGitHubOutput("geoip_tag", geoIPRelease.TagName); err != nil {
 		return err
-	}
-
-	releaseTag := fmt.Sprintf("geosite-%s_geoip-%s", geositeRelease.TagName, geoIPRelease.TagName)
-	releaseName := fmt.Sprintf("geosite %s | geoip %s", geositeRelease.TagName, geoIPRelease.TagName)
-	if err := setGitHubOutput("release_tag", releaseTag); err != nil {
-		return err
-	}
-	if err := setGitHubOutput("release_name", releaseName); err != nil {
-		return err
-	}
-
-	if !changed {
-		log.Println("upstream tags unchanged, skip build")
-		return nil
 	}
 
 	if err := generator.PrepareDist(rootDir); err != nil {
@@ -110,44 +86,6 @@ func run() error {
 	}
 
 	return nil
-}
-
-func shouldBuild(
-	ctx context.Context,
-	client *githubapi.Client,
-	repository string,
-	geositeTag string,
-	geoIPTag string,
-	force bool,
-) (bool, error) {
-	if force || strings.TrimSpace(repository) == "" {
-		return true, nil
-	}
-
-	release, err := client.LatestRelease(ctx, repository)
-	if err != nil {
-		if errors.Is(err, githubapi.ErrNotFound) {
-			return true, nil
-		}
-		return false, fmt.Errorf("fetch current repository release: %w", err)
-	}
-
-	manifestAsset := githubapi.FindAsset(release, generator.ManifestAssetName)
-	if manifestAsset == nil {
-		return true, nil
-	}
-
-	manifestBytes, err := client.Download(ctx, manifestAsset.BrowserDownloadURL)
-	if err != nil {
-		return false, fmt.Errorf("download manifest asset: %w", err)
-	}
-
-	var manifest generator.Manifest
-	if err := json.Unmarshal(manifestBytes, &manifest); err != nil {
-		return true, nil
-	}
-
-	return manifest.Geosite.ReleaseTag != geositeTag || manifest.GeoIP.ReleaseTag != geoIPTag, nil
 }
 
 func setGitHubOutput(name string, value string) error {
@@ -196,13 +134,7 @@ func releaseNotes(manifest generator.Manifest) string {
 - geosite directory: dist/%s
 - geoip directory: dist/%s
 
-Assets:
-
-- geosite.zip
-- geoip.zip
-- manifest.json
-
-Branches:
+Published branches:
 
 - %s
 - %s
@@ -230,12 +162,4 @@ func firstNonEmpty(values ...string) string {
 	}
 
 	return ""
-}
-
-func boolString(value bool) string {
-	if value {
-		return "true"
-	}
-
-	return "false"
 }
