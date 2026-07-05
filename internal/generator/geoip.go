@@ -119,6 +119,9 @@ func writeGeoIPOutputs(rootDir string, countryMap map[string][]*net.IPNet) error
 		if err := writeRuleSetFile(filepath.Join(outputDir, baseName+".srs"), ruleSet); err != nil {
 			return err
 		}
+		if err := writeRuleSetJSONFile(filepath.Join(outputDir, baseName+".json"), ruleSet); err != nil {
+			return err
+		}
 	}
 
 	return nil

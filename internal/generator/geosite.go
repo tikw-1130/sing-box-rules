@@ -114,6 +114,9 @@ func writeGeositeOutputs(rootDir string, domainMap map[string][]geosite.Item) er
 		if err := writeRuleSetFile(filepath.Join(outputDir, baseName+".srs"), ruleSet); err != nil {
 			return err
 		}
+		if err := writeRuleSetJSONFile(filepath.Join(outputDir, baseName+".json"), ruleSet); err != nil {
+			return err
+		}
 	}
 
 	return nil

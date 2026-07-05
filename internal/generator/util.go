@@ -4,6 +4,7 @@ import (
 	"context"
 	"crypto/sha256"
 	"encoding/hex"
+	"encoding/json"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -62,6 +63,24 @@ func writeRuleSetFile(srsPath string, ruleSet option.PlainRuleSet) error {
 	defer file.Close()
 
 	return srs.Write(file, ruleSet, RuleSetBinaryVersion)
+}
+
+func writeRuleSetJSONFile(jsonPath string, ruleSet option.PlainRuleSet) error {
+	if err := ensureDir(filepath.Dir(jsonPath)); err != nil {
+		return err
+	}
+
+	file, err := os.Create(jsonPath)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	encoder := json.NewEncoder(file)
+	encoder.SetEscapeHTML(false)
+	encoder.SetIndent("", "  ")
+
+	return encoder.Encode(ruleSet)
 }
 
 func sha256Hex(payload []byte) string {
