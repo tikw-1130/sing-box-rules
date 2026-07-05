@@ -42,8 +42,8 @@ jobs:
         if: steps.build.outputs.changed == 'true'
         run: |
           cd dist
-          zip -rq geosite-rule-set.zip rule-set-geosite
-          zip -rq geoip-rule-set.zip rule-set-geoip
+          zip -rq geosite.zip geosite
+          zip -rq geoip.zip geoip
 
       - name: Publish rule-set branches
         if: steps.build.outputs.changed == 'true'
@@ -59,8 +59,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release create "${{ steps.build.outputs.release_tag }}" \
-            dist/geosite-rule-set.zip \
-            dist/geoip-rule-set.zip \
+            dist/geosite.zip \
+            dist/geoip.zip \
             dist/manifest.json \
             --title "${{ steps.build.outputs.release_name }}" \
             --notes-file dist/release-notes.md
