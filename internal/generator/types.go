@@ -5,7 +5,7 @@ import (
 )
 
 const (
-	SingBoxVersion = "v1.13.14"
+	SingBoxVersion = "v1.14.3"
 
 	GeositeUpstreamRepo = "Loyalsoldier/v2ray-rules-dat"
 	GeoIPUpstreamRepo   = "Loyalsoldier/geoip"
@@ -20,7 +20,7 @@ const (
 	ReleaseNotesPath  = "dist/release-notes.md"
 	ManifestPath      = "dist/manifest.json"
 
-	RuleSetBinaryVersion = C.RuleSetVersion2
+	RuleSetBinaryVersion = C.RuleSetVersion5
 )
 
 type Manifest struct {
