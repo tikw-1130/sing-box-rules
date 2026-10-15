@@ -80,7 +80,10 @@ func writeRuleSetJSONFile(jsonPath string, ruleSet option.PlainRuleSet) error {
 	encoder.SetEscapeHTML(false)
 	encoder.SetIndent("", "  ")
 
-	return encoder.Encode(ruleSet)
+	return encoder.Encode(option.PlainRuleSetCompat{
+		Version: RuleSetBinaryVersion,
+		Options: ruleSet,
+	})
 }
 
 func sha256Hex(payload []byte) string {
