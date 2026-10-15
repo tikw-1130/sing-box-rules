@@ -20,7 +20,7 @@ const (
 	ReleaseNotesPath  = "dist/release-notes.md"
 	ManifestPath      = "dist/manifest.json"
 
-	RuleSetBinaryVersion = C.RuleSetVersion5
+	RuleSetBinaryVersion = C.RuleSetVersion2
 )
 
 type Manifest struct {
