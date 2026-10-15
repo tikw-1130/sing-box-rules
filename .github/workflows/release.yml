@@ -14,15 +14,10 @@ concurrency:
 
 jobs:
   publish:
-    runs-on: ubuntu-26.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-
-      - name: Report runner image
-        run: |
-          grep PRETTY_NAME /etc/os-release
-          uname -r
 
       - name: Setup Go
         uses: actions/setup-go@v6
