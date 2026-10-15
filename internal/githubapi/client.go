@@ -7,11 +7,18 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"strconv"
 	"strings"
 	"time"
 )
 
-const apiBaseURL = "https://api.github.com"
+const (
+	apiBaseURL = "https://api.github.com"
+
+	maxAttempts       = 5
+	initialRetryDelay = 2 * time.Second
+	maxRetryDelay     = 30 * time.Second
+)
 
 var ErrNotFound = errors.New("github resource not found")
 
@@ -114,23 +121,87 @@ func (c *Client) doWithHeaders(req *http.Request) (*http.Response, error) {
 		req.Header.Set("Authorization", "Bearer "+c.token)
 	}
 
-	resp, err := c.httpClient.Do(req)
-	if err != nil {
-		return nil, err
+	delay := initialRetryDelay
+	var lastErr error
+
+	for attempt := 1; attempt <= maxAttempts; attempt++ {
+		resp, err := c.httpClient.Do(req)
+		if err == nil {
+			if resp.StatusCode == http.StatusNotFound {
+				resp.Body.Close()
+				return nil, ErrNotFound
+			}
+
+			if resp.StatusCode >= http.StatusOK && resp.StatusCode < http.StatusMultipleChoices {
+				return resp, nil
+			}
+
+			status := resp.StatusCode
+			retryAfter := parseRetryAfter(resp.Header.Get("Retry-After"))
+			body, _ := io.ReadAll(io.LimitReader(resp.Body, 4096))
+			resp.Body.Close()
+			lastErr = fmt.Errorf("github request failed: %s: %s", resp.Status, strings.TrimSpace(string(body)))
+
+			if !retryableStatus(status) {
+				return nil, lastErr
+			}
+
+			if retryAfter > 0 {
+				delay = retryAfter
+			}
+		} else {
+			if req.Context().Err() != nil {
+				return nil, err
+			}
+
+			lastErr = err
+		}
+
+		if attempt == maxAttempts {
+			return nil, lastErr
+		}
+
+		if !sleepContext(req.Context(), delay) {
+			return nil, lastErr
+		}
+
+		delay *= 2
+		if delay > maxRetryDelay {
+			delay = maxRetryDelay
+		}
 	}
 
-	if resp.StatusCode == http.StatusNotFound {
-		resp.Body.Close()
-		return nil, ErrNotFound
+	return nil, lastErr
+}
+
+func retryableStatus(status int) bool {
+	switch status {
+	case http.StatusRequestTimeout, http.StatusTooManyRequests:
+		return true
 	}
 
-	if resp.StatusCode < http.StatusOK || resp.StatusCode >= http.StatusMultipleChoices {
-		body, _ := io.ReadAll(io.LimitReader(resp.Body, 4096))
-		resp.Body.Close()
-		return nil, fmt.Errorf("github request failed: %s: %s", resp.Status, strings.TrimSpace(string(body)))
+	return status >= http.StatusInternalServerError
+}
+
+func parseRetryAfter(value string) time.Duration {
+	seconds, err := strconv.Atoi(strings.TrimSpace(value))
+	if err != nil || seconds <= 0 {
+		return 0
 	}
 
-	return resp, nil
+	return time.Duration(seconds) * time.Second
+}
+
+func sleepContext(ctx context.Context, delay time.Duration) bool {
+	timer := time.NewTimer(delay)
+	defer timer.Stop()
+
+	select {
+	case <-ctx.Done():
+		return false
+	case <-timer.C:
+		return true
+	}
 }
 
 func splitRepository(repository string) (string, string, error) {
