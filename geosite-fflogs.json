@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain": [
+        "fflogs.com",
+        "rpglogs.com",
+        "rpglogs.cn"
+      ],
+      "domain_suffix": [
+        ".fflogs.com",
+        ".rpglogs.com",
+        ".rpglogs.cn"
+      ]
+    }
+  ]
+}

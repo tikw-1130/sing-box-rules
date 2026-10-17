@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain": [
+        "deviantart.com",
+        "deviantart.net",
+        "da-files.com"
+      ],
+      "domain_suffix": [
+        ".deviantart.com",
+        ".deviantart.net",
+        ".da-files.com"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain": "btdig.com",
+      "domain_suffix": ".btdig.com"
+    }
+  ]
+}

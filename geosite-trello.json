@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain": [
+        "trello.com",
+        "trellocdn.com"
+      ],
+      "domain_suffix": [
+        ".trello.com",
+        ".trellocdn.com"
+      ]
+    }
+  ]
+}
