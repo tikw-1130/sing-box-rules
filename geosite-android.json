@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain": [
+        "android.googlesource.com",
+        "android.com",
+        "androidify.com"
+      ],
+      "domain_suffix": [
+        ".android",
+        ".android.com",
+        ".androidify.com"
+      ]
+    }
+  ]
+}

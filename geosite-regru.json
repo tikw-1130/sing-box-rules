@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain": [
+        "reg.cloud",
+        "reg.com",
+        "reg.ru"
+      ],
+      "domain_suffix": [
+        ".reg.cloud",
+        ".reg.com",
+        ".reg.ru"
+      ]
+    }
+  ]
+}
