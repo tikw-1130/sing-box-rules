@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain": [
+        "zoom.com",
+        "zoom.us",
+        "zoom.com.cn"
+      ],
+      "domain_suffix": [
+        ".zoom.com",
+        ".zoom.us",
+        ".zoom.com.cn"
+      ]
+    }
+  ]
+}

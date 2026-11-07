@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain": [
+        "barrons-advisor.com",
+        "barrons-conferences.com",
+        "barrons.com",
+        "wsjbarrons.com"
+      ],
+      "domain_suffix": [
+        ".barrons-advisor.com",
+        ".barrons-conferences.com",
+        ".barrons.com",
+        ".wsjbarrons.com"
+      ]
+    }
+  ]
+}

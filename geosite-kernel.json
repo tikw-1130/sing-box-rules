@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain": "kernel.org",
+      "domain_suffix": ".kernel.org"
+    }
+  ]
+}

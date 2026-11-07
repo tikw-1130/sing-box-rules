@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain": [
+        "kemono.cr",
+        "kemono.party",
+        "kemono.su"
+      ],
+      "domain_suffix": [
+        ".kemono.cr",
+        ".kemono.party",
+        ".kemono.su"
+      ]
+    }
+  ]
+}
