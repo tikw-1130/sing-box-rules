@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain": "ad.cctv.com",
+      "domain_suffix": ".ad.cctv.com"
+    }
+  ]
+}
