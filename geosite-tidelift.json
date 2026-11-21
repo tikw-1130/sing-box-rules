@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain": "tidelift.com",
+      "domain_suffix": ".tidelift.com"
+    }
+  ]
+}

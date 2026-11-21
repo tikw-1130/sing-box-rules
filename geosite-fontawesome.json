@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain": [
+        "fontawesome.com",
+        "fortawesome.com"
+      ],
+      "domain_suffix": [
+        ".fontawesome.com",
+        ".fortawesome.com"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain": "fontexplorerx.com",
+      "domain_suffix": ".fontexplorerx.com"
+    }
+  ]
+}

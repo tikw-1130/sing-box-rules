@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain": [
+        "rimg.com.tw",
+        "ruten.com.tw"
+      ],
+      "domain_suffix": [
+        ".rimg.com.tw",
+        ".ruten.com.tw"
+      ]
+    }
+  ]
+}

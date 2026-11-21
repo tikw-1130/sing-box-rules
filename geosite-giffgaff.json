@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain": [
+        "giffgaff.com",
+        "giffgaff.design"
+      ],
+      "domain_suffix": [
+        ".giffgaff.com",
+        ".giffgaff.design"
+      ]
+    }
+  ]
+}
