@@ -5,7 +5,7 @@ import (
 )
 
 const (
-	SingBoxVersion = "v1.14.3"
+	SingBoxVersion = "v1.14.4"
 
 	GeositeUpstreamRepo = "Loyalsoldier/v2ray-rules-dat"
 	GeoIPUpstreamRepo   = "Loyalsoldier/geoip"
