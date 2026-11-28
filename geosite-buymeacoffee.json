@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain": [
+        "buymeacoff.ee",
+        "buymeacoffee.com"
+      ],
+      "domain_suffix": [
+        ".buymeacoff.ee",
+        ".buymeacoffee.com"
+      ]
+    }
+  ]
+}

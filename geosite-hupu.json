@@ -1,0 +1,19 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain": [
+        "hupu.com",
+        "hupucdn.com",
+        "shihuo.cn",
+        "hoopchina.com.cn"
+      ],
+      "domain_suffix": [
+        ".hupu.com",
+        ".hupucdn.com",
+        ".shihuo.cn",
+        ".hoopchina.com.cn"
+      ]
+    }
+  ]
+}

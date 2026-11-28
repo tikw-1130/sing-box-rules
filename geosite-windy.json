@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain": "windy.com",
+      "domain_suffix": ".windy.com"
+    }
+  ]
+}

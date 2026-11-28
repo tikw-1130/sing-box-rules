@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "rules": [
+    {
+      "domain": "laracasts.com",
+      "domain_suffix": ".laracasts.com"
+    }
+  ]
+}
